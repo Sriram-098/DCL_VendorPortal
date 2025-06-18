@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DCIL Vendor Registration Instructions</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to bottom right, #e0f7fa, #ffffff);
+            margin: 0;
+            padding: 30px;
+            color: #333;
+        }
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            animation: slideIn 0.8s ease;
+        }
+        h1 {
+            text-align: center;
+            color: #005b9f;
+            margin-bottom: 10px;
+        }
+        h2 {
+            text-align: center;
+            color: #0083b0;
+            margin-top: 0;
+            margin-bottom: 30px;
+        }
+        ol {
+            padding-left: 20px;
+            line-height: 1.6;
+        }
+        .notice {
+            background-color: #fff8e1;
+            border-left: 6px solid #f9a825;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 5px;
+            animation: fadeIn 1.2s ease;
+        }
+        .checkbox-group {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .checkbox-group input[type="checkbox"] {
+            transform: scale(1.2);
+            margin-right: 10px;
+        }
+        .btn {
+            margin-top: 30px;
+            display: block;
+            width: fit-content;
+            padding: 12px 30px;
+            background-color: #005b9f;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: background 0.3s ease;
+            margin-left: auto;
+            margin-right: auto;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+        .btn.active {
+            cursor: pointer;
+            opacity: 1;
+        }
+        .btn:hover.active {
+            background-color: #007bbd;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            ol {
+                font-size: 0.95em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dredging Corporation of India Limited</h1>
+        <h2>Vendor Registration Instructions</h2>
+
+        <div class="notice">
+            <strong>Note:</strong> DCIL does not entertain middlemen or third parties. Prospective suppliers must not submit applications through them.
+        </div>
+
+        <p><strong>Instructions to Applicants:</strong></p>
+        <ol>
+            <li>Vendors are selected based on product suitability, capacity, turnover, quality, and if needed, technical verification.</li>
+            <li>Products procured based on performance require a trial process (free followed by paid).</li>
+            <li>Submit/upload all notarized documents including registration, PAN, MSE, and 3 years' financials online.</li>
+            <li>Processing time: 180 working days, plus 90 days for capacity assessment if applicable.</li>
+            <li>DCIL reserves the right to cancel or reject any registration without assigning reasons.</li>
+            <li>All forms must be signed/stamped by an authorized signatory.</li>
+            <li>Vendors must respond quickly to any queries raised during evaluation.</li>
+            <li>Manufacturers are given preference over dealers and traders.</li>
+            <li>DCIL prefers suppliers with sound technical, financial, and ethical standards.</li>
+            <li>Registration does not guarantee work or tender inclusion.</li>
+            <li>Vendors must keep their data updated. For updates to name, address, or bank, reapply with documents.</li>
+            <li>SC/ST and Women MSEs must submit proof of ownership and category with MSME/NSIC certificates.</li>
+            <li>Startups must provide a certificate of recognition. Relaxation applies only if safety-critical items are not involved.</li>
+        </ol>
+
+        <div class="checkbox-group">
+            <input type="checkbox" id="agreeCheckbox" onchange="toggleButton()">
+            <label for="agreeCheckbox">I accept the above instructions and terms.</label>
+        </div>
+
+        <a href="{% url 'register' %}" id="continueBtn" class="btn">Continue</a>
+    </div>
+
+    <script>
+        function toggleButton() {
+            const checkbox = document.getElementById("agreeCheckbox");
+            const button = document.getElementById("continueBtn");
+
+            if (checkbox.checked) {
+                button.classList.add("active");
+                button.style.pointerEvents = "auto";
+                button.style.cursor = "pointer";
+            } else {
+                button.classList.remove("active");
+                button.style.pointerEvents = "none";
+                button.style.cursor = "not-allowed";
+            }
+        }
+
+        // disable link initially
+        document.addEventListener("DOMContentLoaded", function() {
+            const button = document.getElementById("continueBtn");
+            button.style.pointerEvents = "none";
+        });
+    </script>
+</body>
+</html>

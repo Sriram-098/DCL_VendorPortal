@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vendor Registration - Dredging Corporation Limited</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url("{% static '7899327-petroleum-hd-image.jpg' %}");
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      backdrop-filter: brightness(0.8);
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 30px 40px;
+      border-radius: 20px;
+      max-width: 600px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.4);
+    }
+
+    h1, h2, h3 {
+      margin: 10px 0;
+    }
+
+    .btn {
+      display: inline-block;
+      margin: 15px 10px;
+      padding: 15px 25px;
+      font-size: 16px;
+      font-weight: 600;
+      background-color: white;
+      color: navy;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+      background-color: #005b99;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Dredging Corporation Limited</h2>
+    <h3>Visakhapatnam</h3>
+    <h3>Materials Management Department</h3>
+    <h2>Vendor Registration System</h2>
+    <h1>Welcome to Registration of Vendors/Contractors</h1>
+
+    <a class="btn" href="{% url 'instructionpage' %}">If you are a Supplier of Materials/Goods, click here</a><br>
+    <a class="btn" href="register_services.html">If you are a Supplier of Services (Contractor), click here</a>
+  </div>
+</body>
+</html>

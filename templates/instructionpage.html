@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DCIL Vendor Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            background: linear-gradient(to bottom, #e0f7fa, #f5f5f5);
+            background-image: url("dcil_port_bg.jpg"); /* Optional background */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #005b9f;
+            padding-bottom: 20px;
+            background-color: rgba(255,255,255,0.85);
+            border-radius: 10px;
+        }
+
+        .header h1 {
+            color: #005b9f;
+            margin-bottom: 5px;
+        }
+
+        .header h2, .header h3 {
+            color: #0077aa;
+            margin-top: 5px;
+        }
+
+        .content-box {
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .highlight {
+            background-color: #fff9c4;
+            padding: 15px;
+            border-left: 5px solid #ff9800;
+            margin-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #005b9f;
+            color: white;
+            padding: 10px 24px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        .btn:hover {
+            background-color: #0077cc;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #bbb;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .form-group img {
+            margin-top: 8px;
+            display: block;
+            max-width: 180px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Dredging Corporation of India Limited</h1>
+        <h2>Visakhapatnam</h2>
+        <h3>Materials Management Department</h3>
+        <h3>Vendor Registration System</h3>
+    </div>
+
+    <div class="content-box">
+        <div class="highlight">
+            <strong>Important Notice:</strong> Applicants who had finally submitted the application on or after 15-JAN-2021 (after control no. 2100156) need not submit hard copies of documents.
+        </div>
+
+        <p>Procurement of materials, spares & consumables by DCIL is through a system of approved/registered vendors. Vendors desirous of getting themselves as approved suppliers of DCIL may furnish complete details of the product(s) online, for which registration is desired along with credentials of the firm/establishment.</p>
+
+        <p>Interested applicants for registration/upgradation are requested to click on the link below for applying for Online Vendor Registration.</p>
+
+        <p>All the fields like General information, Registration information, Financial information etc. are to be filled with appropriate data and requested to press the "SUBMIT" button at the bottom. After successful submission of data, an Application Control Number shall be auto-generated. The auto-generated application control number and security code shall be mailed to your registered e-mail address.</p>
+
+        <center>
+            <a href="{% url 'instructionregisteruser' %}" class="btn">Click for Vendor Registration/Up-gradation</a>
+
+        </center>
+    </div>
+
+    <div class="content-box">
+        <h3>Contact Information</h3>
+        <p>
+            <strong>Manager (MM)-Vendor Development Cell</strong><br>
+            2nd Floor, Main Admin Building<br>
+            Dredging Corporation of India Limited<br>
+            Visakhapatnam - 530001 (AP)<br>
+            Mobile: +91-9876543210<br>
+            Tel: 0891-2546789, extension: 45678<br>
+            Email: vendor@dredge-india.com
+        </p>
+    </div>
+
+    <div class="content-box">
+        <h3>Vendor Login</h3>
+        <p>Please enter your Email, Login ID, Password, and Captcha to access your account.</p>
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="email">Enter Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="loginId">Enter Login ID:</label>
+                <input type="text" id="loginId" name="loginId" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Enter Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+
+            <div class="form-group">
+                <label for="captcha">Captcha:</label>
+                {% if form.captcha %}
+                    {{ form.captcha }}
+                {% else %}
+                    <img src="captcha_image.jpg" alt="Captcha" />
+                    <input type="text" id="captcha" name="captcha" required>
+                {% endif %}
+            </div>
+
+            <button class="btn" type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div class="footer">
+        &copy; 2025 Dredging Corporation of India Limited. All Rights Reserved.
+    </div>
+</body>
+</html>

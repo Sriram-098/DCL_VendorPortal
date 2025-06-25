@@ -58,7 +58,7 @@ ROOT_URLCONF = 'vendorproject.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,"templates")],
+        'DIRS': [BASE_DIR / "templates"], 
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -86,7 +86,12 @@ DATABASES = {
         'PORT': '5432',
     }
 }
-
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'sriramsenapathi842@gmail.com'
+EMAIL_HOST_PASSWORD = 'qhfyvdsehypjpyzq'  # no spaces
 
 
 
@@ -130,6 +135,8 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
     
 ]
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

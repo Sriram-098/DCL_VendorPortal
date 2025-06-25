@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #eef2f5;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    .vendor-card {
+      border: 1px solid #ddd;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: box-shadow 0.3s ease;
+      background: #fafafa;
+    }
+
+    .vendor-card:hover {
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .vendor-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      background: #f7f9fc;
+    }
+
+    .vendor-header h3 {
+      margin: 0;
+      color: #222;
+    }
+
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .actions span {
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 5px;
+      background: #eee;
+    }
+
+    .actions .status-pending {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .actions .status-accepted {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .actions .status-rejected {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    .actions button {
+      padding: 6px 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .accept-btn { background-color: #28a745; color: white; }
+    .reject-btn { background-color: #dc3545; color: white; }
+    .toggle-btn { background-color: #007bff; color: white; }
+
+    .details {
+      display: none;
+      padding: 16px;
+      background: white;
+      border-top: 1px solid #ddd;
+      font-size: 14px;
+    }
+
+    .details p {
+      margin: 5px 0;
+    }
+
+    @media (max-width: 600px) {
+      .vendor-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      .actions {
+        width: 100%;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+
+  <script>
+    function toggleDetails(id) {
+      const details = document.getElementById('details-' + id);
+      const button = document.getElementById('toggle-btn-' + id);
+      if (details.style.display === 'none' || details.style.display === '') {
+        details.style.display = 'block';
+        button.textContent = 'Show Less';
+      } else {
+        details.style.display = 'none';
+        button.textContent = 'Show More';
+      }
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h2>Welcome, Admin</h2>
+
+    {% for vendor in vendors %}
+    <div class="vendor-card">
+      <div class="vendor-header">
+        <h3>{{ vendor.supplier_name }}</h3>
+         
+
+        <div class="actions">
+          <span class="status-{{ vendor.status|lower }}">{{ vendor.status }}</span>
+
+          {% if vendor.status == 'Pending' %}
+          <form method="post" action="{% url 'update_status' vendor.id 'Accepted' %}" style="display:inline;">
+            {% csrf_token %}
+            <button class="accept-btn" type="submit">Accept</button>
+          </form>
+          <form method="post" action="{% url 'update_status' vendor.id 'Rejected' %}" style="display:inline;">
+            {% csrf_token %}
+            <button class="reject-btn" type="submit">Reject</button>
+          </form>
+          {% endif %}
+          <button id="toggle-btn-{{ vendor.id }}" class="toggle-btn" onclick="toggleDetails({{ vendor.id }})">Show More</button>
+        </div>
+      </div>
+
+      <div class="details" id="details-{{ vendor.id }}">
+        <p><strong>Alias:</strong> {{ vendor.supplier_alias }}</p>
+        <p><strong>Address:</strong> {{ vendor.address1 }}, {{ vendor.address2 }}, {{ vendor.address3 }}</p>
+        <p><strong>City:</strong> {{ vendor.city }}, {{ vendor.state }}, {{ vendor.country }} - {{ vendor.pin_code }}</p>
+        <p><strong>Mobile:</strong> {{ vendor.mobile }}</p>
+        <p><strong>Landline:</strong> {{ vendor.landline }}</p>
+        <p><strong>Fax:</strong> {{ vendor.fax }}</p>
+        <p><strong>Email:</strong> {{ vendor.email }}</p>
+        <p><strong>Alternate Email:</strong> {{ vendor.alt_email }}</p>
+        <p><strong>Products Offered:</strong> {{ vendor.products_offered }}</p>
+        <p><strong>Product Category:</strong> {{ vendor.product_category }}</p>
+
+        <hr>
+        <h4>Statutory Details</h4>
+        <p><strong>PAN No:</strong> {{ vendor.pan_no }}</p>
+        <p><strong>GST No:</strong> {{ vendor.gst_no }}</p>
+        <p><strong>GST Type:</strong> {{ vendor.gst_type }}</p>
+        <p><strong>MSME No:</strong> {{ vendor.msme_no }}</p>
+        <p><strong>MSME Valid Date:</strong> {{ vendor.msme_valid_date }}</p>
+        <p><strong>GeM No:</strong> {{ vendor.gem_no }}</p>
+        <p><strong>MSME Certificate:</strong>
+          {% if vendor.msme_certificate %}
+            <a href="{{ vendor.msme_certificate.url }}" target="_blank">View Certificate</a>
+          {% else %}
+            Not Uploaded
+          {% endif %}
+        </p>
+
+        <hr>
+        <h4>Bank Details</h4>
+        <p><strong>Bank Name:</strong> {{ vendor.bank_name }}</p>
+        <p><strong>Bank Code:</strong> {{ vendor.bank_code }}</p>
+        <p><strong>Bank City:</strong> {{ vendor.bank_city }}</p>
+        <p><strong>Branch:</strong> {{ vendor.branch_name }}</p>
+        <p><strong>IFSC:</strong> {{ vendor.ifsc }}</p>
+        <p><strong>Account No:</strong> {{ vendor.account_no }}</p>
+        <p><strong>Account Type:</strong> {{ vendor.account_type }}</p>
+        <p><strong>Payment Type:</strong> {{ vendor.payment_type }}</p>
+
+        <hr>
+        <p><strong>Submitted At:</strong> {{ vendor.created_at }}</p>
+      </div>
+    </div>
+    {% empty %}
+    <p>No vendor registrations found.</p>
+    {% endfor %}
+  </div>
+</body>
+</html>

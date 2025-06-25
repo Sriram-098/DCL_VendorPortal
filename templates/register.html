@@ -216,56 +216,74 @@ body {
   </div>
 </div>
 <br>
+  {% if messages %}
+    <ul>
+      {% for message in messages %}
+        <li style="color: red;">{{ message }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
 
-    <form id="vendorForm" method="POST" enctype="multipart/form-data" action="{% url 'register' %}">
-      {% csrf_token %}
-      <!-- Step 1:General Info -->
-      <div class="form-step active" id="step1">
+
+   <form id="vendorForm" method="POST" enctype="multipart/form-data" action="{% url 'register' %}">
+  {% csrf_token %}
+
+  <!-- Step 1: General Information -->
+  <div class="form-step active" id="step1">
   <h2>1. General Information</h2>
 
   <div class="form-grid">
     <div class="form-group">
-      <label for="supplierName">Supplier Name</label>
+      <label for="supplierName">Supplier Name <span style="color:red">*</span></label>
       <input type="text" id="supplierName" name="supplier_name" required>
+      
     </div>
+    {% if messages %}{% for message in messages %}{% if "Username already exists" in message.message|lower %}<span class="error" style="color:red ;display:block;">{{ message }}</span>{% endif %}{% endfor %}{% endif %}
 
     <div class="form-group">
       <label for="supplierAlias">Supplier Alias</label>
       <input type="text" id="supplierAlias" name="supplier_alias">
+      {% if messages %}{% for message in messages %}{% if 'supplier alias' in message.message|lower %}<span class="error" style="color:red">{{ message }}</span>{% endif %}{% endfor %}{% endif %}
     </div>
 
     <div class="form-group">
-      <label for="address1">Address Line 1</label>
+      <label for="address1">Address Line 1 <span style="color:red">*</span></label>
       <input type="text" id="address1" name="address1" required>
+      {% if messages %}{% for message in messages %}{% if 'address line 1' in message.message|lower %}<span class="error" style="color:red">{{ message }}</span>{% endif %}{% endfor %}{% endif %}
     </div>
 
     <div class="form-group">
       <label for="address2">Address Line 2</label>
       <input type="text" id="address2" name="address2">
+      {% if messages %}{% for message in messages %}{% if 'address line 2' in message.message|lower %}<span class="error" style="color:red">{{ message }}</span>{% endif %}{% endfor %}{% endif %}
     </div>
 
     <div class="form-group">
       <label for="address3">Address Line 3</label>
       <input type="text" id="address3" name="address3">
+      {% if messages %}{% for message in messages %}{% if 'address line 3' in message.message|lower %}<span class="error" style="color:red">{{ message }}</span>{% endif %}{% endfor %}{% endif %}
     </div>
 
     <div class="form-group">
-      <label for="city">City</label>
+      <label for="city">City <span style="color:red">*</span></label>
       <input type="text" id="city" name="city" required>
+      {% if messages %}{% for message in messages %}{% if 'city' in message.message|lower %}<span class="error" style="color:red">{{ message }}</span>{% endif %}{% endfor %}{% endif %}
     </div>
 
     <div class="form-group">
-      <label for="pin">PIN Code</label>
+      <label for="pin">PIN Code <span style="color:red">*</span></label>
       <input type="text" id="pin" name="pin_code" required>
+      {% if messages %}{% for message in messages %}{% if 'pin code' in message.message|lower %}<span class="error" style="color:red">{{ message }}</span>{% endif %}{% endfor %}{% endif %}
     </div>
 
     <div class="form-group">
-      <label for="state">State</label>
+      <label for="state">State <span style="color:red">*</span></label>
       <input type="text" id="state" name="state" required>
+      {% if messages %}{% for message in messages %}{% if 'state' in message.message|lower %}<span class="error" style="color:red">{{ message }}</span>{% endif %}{% endfor %}{% endif %}
     </div>
 
     <div class="form-group">
-      <label for="country">Country</label>
+      <label for="country">Country <span style="color:red">*</span></label>
       <select id="country" name="country" required>
         <option value="">Select Country</option>
         <option>India</option>
@@ -273,135 +291,54 @@ body {
         <option>USA</option>
         <option>UK</option>
       </select>
+      {% if messages %}{% for message in messages %}{% if 'country' in message.message|lower %}<span class="error" style="color:red">{{ message }}</span>{% endif %}{% endfor %}{% endif %}
     </div>
 
     <div class="form-group">
-      <label for="mobile">Mobile</label>
+      <label for="mobile">Mobile <span style="color:red">*</span></label>
       <input type="tel" id="mobile" name="mobile" required>
+      {% if messages %}{% for message in messages %}{% if 'Invalid mobile number' in message.message|lower %}<span class="error" style="color:red">{{ message }}</span>{% endif %}{% endfor %}{% endif %}
     </div>
 
     <div class="form-group">
       <label for="landline">Landline</label>
       <input type="tel" id="landline" name="landline">
+      {% if messages %}{% for message in messages %}{% if 'landline' in message.message|lower %}<span class="error" style="color:red">{{ message }}</span>{% endif %}{% endfor %}{% endif %}
     </div>
 
     <div class="form-group">
       <label for="fax">Fax</label>
       <input type="text" id="fax" name="fax">
+      {% if messages %}{% for message in messages %}{% if 'fax' in message.message|lower %}<span class="error" style="color:red">{{ message }}</span>{% endif %}{% endfor %}{% endif %}
     </div>
 
     <div class="form-group">
-      <label for="email">Primary Email</label>
+      <label for="email">Primary Email <span style="color:red">*</span></label>
       <input type="email" id="email" name="email" required>
+      {% if messages %}{% for message in messages %}{% if 'Email already exists' in message.message|lower %}<span class="error" style="color:red">{{ message }}</span>{% endif %}{% endfor %}{% endif %}
     </div>
 
     <div class="form-group">
       <label for="altEmail">Alternate Email</label>
       <input type="email" id="altEmail" name="alt_email">
+      {% if messages %}{% for message in messages %}{% if 'alternate email' in message.message|lower %}<span class="error" style="color:red">{{ message }}</span>{% endif %}{% endfor %}{% endif %}
     </div>
 
     <div class="form-group">
-      <label for="proprietorName">Proprietor Name</label>
-      <input type="text" id="proprietorName" name="proprietor_name" required>
-    </div>
-
-    <div class="form-group">
-      <label for="groupName">Group Name</label>
-      <input type="text" id="groupName" name="group_name">
-    </div>
-
-    <div class="form-group">
-      <label for="holdingCompany">Holding Company</label>
-      <input type="text" id="holdingCompany" name="holding_company">
-    </div>
-
-    <div class="form-group">
-      <label for="subsidiary">Subsidiary</label>
-      <input type="text" id="subsidiary" name="subsidiary">
-    </div>
-
-    <div class="form-group">
-      <label for="establishedYear">Established Year</label>
-      <input type="number" id="establishedYear" name="established_year" min="1900" max="2099" required>
-    </div>
-
-    <div class="form-group">
-      <label for="contactPerson">Contact Person</label>
-      <input type="text" id="contactPerson" name="contact_person" required>
-    </div>
-
-    <div class="form-group">
-      <label for="designation">Designation</label>
-      <input type="text" id="designation" name="designation">
-    </div>
-
-    <div class="form-group">
-      <label for="department">Department</label>
-      <input type="text" id="department" name="department">
-    </div>
-
-    <div class="form-group">
-      <label for="ownershipType">Ownership Type</label>
-      <select id="ownershipType" name="ownership_type" required>
-        <option value="">Select Ownership Type</option>
-        <option>Proprietary</option>
-        <option>Partnership</option>
-        <option>Pvt Ltd</option>
-        <option>Public Ltd</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label for="businessNature">Business Nature</label>
-      <select id="businessNature" name="business_nature" required>
-        <option value="">Select Business Nature</option>
-        <option>Manufacturer</option>
-        <option>Dealer</option>
-        <option>Trader</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label for="scst">SC/ST Enterprise</label>
-      <select id="scst" name="scst_indicator">
-        <option value="">Select SC/ST Indicator</option>
-        <option>SC</option>
-        <option>ST</option>
-        <option>None</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label for="womenEnterprise">Women Enterprise?</label>
-      <select id="womenEnterprise" name="women_enterprise">
-        <option value="">Select Women Enterprise Status</option>
-        <option>Yes</option>
-        <option>No</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label for="applicationType">Application Type</label>
-      <select id="applicationType" name="application_type" required>
-        <option value="">Select Application Type</option>
-        <option>New</option>
-        <option>Upgradation</option>
-      </select>
-    </div>
-
-    <div class="form-group">
-      <label for="productsOffered">Products Offered</label>
+      <label for="productsOffered">Products Offered <span style="color:red">*</span></label>
       <input type="text" id="productsOffered" name="products_offered" required>
+      {% if messages %}{% for message in messages %}{% if 'products offered' in message.message|lower %}<span class="error" style="color:red">{{ message }}</span>{% endif %}{% endfor %}{% endif %}
     </div>
 
     <div class="form-group">
-      <label for="productCategory">Product Category</label>
+      <label for="productCategory">Product Category <span style="color:red">*</span></label>
       <select id="productCategory" name="product_category" required>
         <option value="">Select Product Category</option>
         <option>Electrical</option>
         <option>Mechanical</option>
         <option>Marine</option>
       </select>
+      {% if messages %}{% for message in messages %}{% if 'product category' in message.message|lower %}<span class="error" style="color:red">{{ message }}</span>{% endif %}{% endfor %}{% endif %}
     </div>
   </div>
 
@@ -412,24 +349,37 @@ body {
 </div>
 
 
-
-      <!-- Step 2: Legal/Statutory -->
-      <div class="form-step" id="step2">
+  <!-- Additional steps (Step 2, 3, and 5) follow similar pattern -->
+   <div class="form-step" id="step2">
   <h2>2. Registration & Statutory Documents</h2>
 
   <div class="form-group">
-    <label for="panNo">IT PAN No.</label>
+    <label for="panNo">IT PAN No. <span style="color:red">*</span></label>
     <input type="text" id="panNo" name="pan_no" required>
+    {% if messages %}
+      {% for message in messages %}
+        {% if "Invalid PAN format" in message.message %}
+          <span class="error" style="color:red; display:block;">{{ message }}</span>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
   </div>
 
   <div class="form-group">
     <label for="gstNo">GST Registration No.</label>
-    <input type="text" id="gstNo" name="gst_no" required>
+    <input type="text" id="gstNo" name="gst_no">
+    {% if messages %}
+      {% for message in messages %}
+        {% if "GST number is not valid" in message.message %}
+          <span class="error" style="color:red; display:block;">{{ message }}</span>
+        {% endif %}
+      {% endfor %}  GST number is not valid
+    {% endif %}
   </div>
 
   <div class="form-group">
     <label for="gstType">GST Registration Type</label>
-    <select id="gstType" name="gst_type" required>
+    <select id="gstType" name="gst_type">
       <option value="">Select GST Regn Type</option>
       <option value="Regular">Regular</option>
       <option value="Composition">Composition</option>
@@ -438,83 +388,44 @@ body {
   </div>
 
   <div class="form-group">
-    <label for="nsicNo">NSIC Registration No.</label>
-    <input type="text" id="nsicNo" name="nsic_no">
+    <label for="mseCertificate">Upload MSME Certificate</label>
+    <input type="file" id="mseCertificate" name="mse_certificate" accept=".pdf,.jpg,.jpeg,.png">
   </div>
 
   <div class="form-group">
-    <label for="mseNo">MSE Registration No.</label>
-    <input type="text" id="mseNo" name="mse_no">
+    <label for="mseNo">MSME Registration No. <span style="color:red">*</span></label>
+    <input type="text" id="mseNo" name="mse_no" required>
+    {% if messages %}
+      {% for message in messages %}
+        {% if "Invalid MSME Registration Number format." in message.message %}
+          <span class="error" style="color:red; display:block;">{{ message }}</span>
+        {% endif %}
+      {% endfor %}  
+    {% endif %}
   </div>
 
   <div class="form-group">
-    <label for="approvedVendorOf">Approved Vendor Of</label>
-    <input type="text" id="approvedVendorOf" name="approved_vendor_of">
+    <label for="mseValidDate">MSME Validity Date <span style="color:red">*</span></label>
+    <input type="date" id="mseValidDate" name="mse_valid_date" required>
+    {% if messages %}
+      {% for message in messages %}
+        {% if "MSME Validity" in message.message %}
+          <span class="error" style="color:red; display:block;">{{ message }}</span>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
   </div>
 
   <div class="form-group">
-    <label for="nsicValidDate">NSIC Validity Date</label>
-    <input type="date" id="nsicValidDate" name="nsic_valid_date">
-  </div>
-
-  <div class="form-group">
-    <label for="mseValidDate">MSE Validity Date</label>
-    <input type="date" id="mseValidDate" name="mse_valid_date">
-  </div>
-
-  <div class="form-group">
-    <label for="gemNo">GeM Registration No.</label>
-    <input type="text" id="gemNo" name="gem_no">
-  </div>
-
-  <div class="form-group">
-    <label for="nsicPermanent">Permanent NSIC Validity?</label>
-    <select id="nsicPermanent" name="nsic_permanent">
-      <option value="">Select</option>
-      <option value="Yes">Yes</option>
-      <option value="No">No</option>
-    </select>
-  </div>
-
-  <div class="form-group">
-    <label for="ssiPermanent">Permanent SSI Validity?</label>
-    <select id="ssiPermanent" name="ssi_permanent">
-      <option value="">Select</option>
-      <option value="Yes">Yes</option>
-      <option value="No">No</option>
-    </select>
-  </div>
-
-  <div class="form-group">
-    <label for="iso9000">ISO 9000 Certified?</label>
-    <select id="iso9000" name="iso9000">
-      <option value="">Select ISO-9000 Indicator</option>
-      <option value="Yes">Yes</option>
-      <option value="No">No</option>
-    </select>
-  </div>
-
-  <div class="form-group">
-    <label for="iso14000">ISO 14000 Certified?</label>
-    <select id="iso14000" name="iso14000">
-      <option value="">Select ISO-14000 Indicator</option>
-      <option value="Yes">Yes</option>
-      <option value="No">No</option>
-    </select>
-  </div>
-
-  <div class="form-group">
-    <label for="iso18000">ISO 18000 Certified?</label>
-    <select id="iso18000" name="iso18000">
-      <option value="">Select ISO-18000 Indicator</option>
-      <option value="Yes">Yes</option>
-      <option value="No">No</option>
-    </select>
-  </div>
-
-  <div class="form-group">
-    <label for="cinNo">CIN No.</label>
-    <input type="text" id="cinNo" name="cin_no">
+    <label for="gemNo">GeM Registration No. <span style="color:red">*</span></label>
+    <input type="text" id="gemNo" name="gem_no" required>
+    {% if messages %}
+      {% for message in messages %}
+        {% if "Invalid GeM Registration Number format." in message.message %}
+          <span class="error" style="color:red; display:block;">{{ message }}</span>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
   </div>
 
   <div class="buttons">
@@ -523,161 +434,176 @@ body {
   </div>
 </div>
 
-      <!-- Step 3: Financial Info -->
-      <div class="form-step" id="step3">
+
+
+
+<div class="form-step" id="step3">
   <h2>3. Financial Information</h2>
 
   <div class="form-group">
-    <label for="bankName">Bank Name</label>
+    <label for="bankName">Bank Name <span style="color:red">*</span></label>
     <select id="bankName" name="bank_name" required>
       <option value="">Select Bank Name</option>
       <option value="SBI">State Bank of India</option>
       <option value="HDFC">HDFC Bank</option>
       <option value="ICICI">ICICI Bank</option>
       <option value="PNB">Punjab National Bank</option>
-      <!-- Add more as needed -->
     </select>
+    {% if messages %}
+      {% for message in messages %}
+        {% if "Bank Name" in message.message %}
+          <span class="error" style="color:red;">{{ message }}</span>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
   </div>
 
   <div class="form-group">
-    <label for="bankCode">Bank Code</label>
+    <label for="bankCode">Bank Code <span style="color:red">*</span></label>
     <input type="text" id="bankCode" name="bank_code" required>
+    {% if messages %}
+      {% for message in messages %}
+        {% if "Bank Code" in message.message %}
+          <span class="error" style="color:red;">{{ message }}</span>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
   </div>
 
   <div class="form-group">
-    <label for="bankCity">Bank City</label>
+    <label for="bankCity">Bank City <span style="color:red">*</span></label>
     <input type="text" id="bankCity" name="bank_city" required>
+    {% if messages %}
+      {% for message in messages %}
+        {% if "Bank City" in message.message %}
+          <span class="error" style="color:red;">{{ message }}</span>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
   </div>
 
   <div class="form-group">
-    <label for="branchName">Branch Name</label>
+    <label for="branchName">Branch Name <span style="color:red">*</span></label>
     <input type="text" id="branchName" name="branch_name" required>
+    {% if messages %}
+      {% for message in messages %}
+        {% if "Branch Name" in message.message %}
+          <span class="error" style="color:red;">{{ message }}</span>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
   </div>
 
   <div class="form-group">
-    <label for="ifsc">Bank IFSC Code</label>
+    <label for="ifsc">Bank IFSC Code <span style="color:red">*</span></label>
     <input type="text" id="ifsc" name="ifsc" required>
+    {% if messages %}
+      {% for message in messages %}
+        {% if "Invalid IFSC format" in message.message %}
+          <span class="error" style="color:red;">{{ message }}</span>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
   </div>
 
   <div class="form-group">
-    <label for="accountNo">Account Number</label>
+    <label for="accountNo">Account Number <span style="color:red">*</span></label>
     <input type="text" id="accountNo" name="account_no" required>
+    {% if messages %}
+      {% for message in messages %}
+        {% if "Invalid account number. It should be 9 to 18 digits." in message.message %}
+          <span class="error" style="color:red;">{{ message }}</span>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
   </div>
 
   <div class="form-group">
-    <label for="accountType">Account Type</label>
+    <label for="accountType">Account Type <span style="color:red">*</span></label>
     <select id="accountType" name="account_type" required>
       <option value="">Select Account Type</option>
       <option value="Current">Current</option>
       <option value="Savings">Savings</option>
     </select>
+    {% if messages %}
+      {% for message in messages %}
+        {% if "Account Type" in message.message %}
+          <span class="error" style="color:red;">{{ message }}</span>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
   </div>
 
   <div class="form-group">
-    <label for="paymentType">Payment Type</label>
+    <label for="paymentType">Payment Type <span style="color:red">*</span></label>
     <select id="paymentType" name="payment_type" required>
       <option value="">Select Payment Type</option>
       <option value="NEFT">NEFT</option>
       <option value="RTGS">RTGS</option>
       <option value="IMPS">IMPS</option>
     </select>
+    {% if messages %}
+      {% for message in messages %}
+        {% if "Payment Type" in message.message %}
+          <span class="error" style="color:red;">{{ message }}</span>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
   </div>
-
- <div class="form-group">
-  <label>Turnover Information (Last 3 Years)</label>
-  <div class="turnover-group">
-    <div class="turnover-entry">
-      <label for="turnoverYear1">Year</label>
-      <input type="number" name="turnover_year1" placeholder="e.g., 2024" required>
-      <label for="turnoverAmt1">Turnover (Rs.)</label>
-      <input type="text" name="turnover_amt1" placeholder="Turnover in Rs." required>
-    </div>
-
-    <div class="turnover-entry">
-      <label for="turnoverYear2">Year</label>
-      <input type="number" name="turnover_year2" placeholder="e.g., 2023" required>
-      <label for="turnoverAmt2">Turnover (Rs.)</label>
-      <input type="text" name="turnover_amt2" placeholder="Turnover in Rs." required>
-    </div>
-
-    <div class="turnover-entry">
-      <label for="turnoverYear3">Year</label>
-      <input type="number" name="turnover_year3" placeholder="e.g., 2022" required>
-      <label for="turnoverAmt3">Turnover (Rs.)</label>
-      <input type="text" name="turnover_amt3" placeholder="Turnover in Rs." required>
-    </div>
-  </div>
-</div>
-
 
   <div class="buttons">
     <button type="button" class="btn" onclick="prevStep()">Back</button>
-    
     <button type="button" class="btn" onclick="nextStep()">Next</button>
   </div>
 </div>
 
 
-      <!-- Step 4: Product Info -->
-      
 
-      <!-- Final Step: Declaration -->
-     <div class="form-step" id="step5">
-  <h2>5. Declarations</h2>
 
-  <div class="declaration-box" style="border: 2px solid #0077b6; padding: 20px; border-radius: 10px; background-color: #f1faff; margin-bottom: 20px;">
-    <p style="font-size: 16px; margin-bottom: 15px;">
-      <strong>Declaration:</strong><br>
-      I hereby confirm that all the information provided above is true, complete, and correct to the best of my knowledge and belief. I understand that any false information may lead to disqualification of my registration.
-    </p>
-    <div style="display: flex; align-items: center;">
-      <input type="checkbox" id="declaration" name="declaration" required style="transform: scale(1.3); margin-right: 10px;">
-      <label for="declaration" style="font-size: 15px;">I accept and confirm the above declaration.</label>
+  <!-- Final Step: Declaration -->
+  <div class="form-step" id="step5">
+    <h2>5. Declarations</h2>
+
+    <div class="declaration-box" style="border: 2px solid #0077b6; padding: 20px; border-radius: 10px; background-color: #f1faff; margin-bottom: 20px;">
+      <p style="font-size: 16px; margin-bottom: 15px;">
+        <strong>Declaration:</strong><br>
+        I hereby confirm that all the information provided above is true, complete, and correct to the best of my knowledge and belief.
+      </p>
+      <div style="display: flex; align-items: center;">
+        <input type="checkbox" id="declaration" name="declaration" required style="transform: scale(1.3); margin-right: 10px;">
+        <label for="declaration" style="font-size: 15px;">I accept and confirm the above declaration. <span style="color:red">*</span></label>
+        {% if messages %}{% for message in messages %}{% if 'declaration' in message.message|lower %}<span class="error" style="color:red">{{ message }}</span>{% endif %}{% endfor %}{% endif %}
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="additionalNotes"><strong>Additional Notes (Optional)</strong></label>
+      <textarea id="additionalNotes" name="additional_notes" rows="3" placeholder="Any additional comments..." style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc;"></textarea>
+    </div>
+
+    <div class="buttons" style="display: flex; justify-content: space-between; margin-top: 20px;">
+      <button type="button" class="btn" onclick="prevStep()" style="background-color: #0077b6;">← Previous</button>
+      <button type="submit" style="background-color: #0077b6; color: white;">✔ Submit Registration</button>
     </div>
   </div>
+</form>
 
-  <div class="form-group">
-    <label for="additionalNotes"><strong>Additional Notes (Optional)</strong></label>
-    <textarea id="additionalNotes" name="additional_notes" rows="3" placeholder="Any additional comments or declarations..." style="width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #ccc;"></textarea>
-  </div>
-
-  <div class="buttons" style="display: flex; justify-content: space-between; margin-top: 20px;">
-    <button type="button" class="btn" onclick="prevStep()" style="background-color: #0077b6;">← Previous</button>
-    <button type="submit" style="background-color: #0077b6; color: white;">✔ Submit Registration</button>
-  </div>
-</div>
-
-
-    </form>
   </div>
  <script>
-  let currentStep = 0;
   const steps = document.querySelectorAll(".form-step");
   const form = document.getElementById("vendorForm");
+  let currentStep = parseInt("{{ current_step|default:0 }}");
 
+
+  // Show correct step
   function showStep(index) {
     steps.forEach((step, i) => {
       step.classList.toggle("active", i === index);
     });
   }
+    showStep(currentStep);
 
-  function nextStep() {
-    // Validate current step before proceeding
-    if (validateStep(currentStep)) {
-      if (currentStep < steps.length - 1) {
-        currentStep++;
-        showStep(currentStep);
-      }
-    }
-  }
-
-  function prevStep() {
-    if (currentStep > 0) {
-      currentStep--;
-      showStep(currentStep);
-    }
-  }
-
+  // Validate each step
   function validateStep(stepIndex) {
     const currentStepForm = steps[stepIndex];
     const requiredFields = currentStepForm.querySelectorAll("[required]");
@@ -699,20 +625,70 @@ body {
     return isValid;
   }
 
-  // Modified form submission handler
-  form.addEventListener("submit", function(e) {
-    // Only prevent default if NOT on last step
+  function nextStep() {
+    if (validateStep(currentStep)) {
+      if (currentStep < steps.length - 1) {
+        currentStep++;
+        showStep(currentStep);
+      }
+    }
+  }
+
+  function prevStep() {
+    if (currentStep > 0) {
+      currentStep--;
+      showStep(currentStep);
+    }
+  }
+
+  // Save all form fields to localStorage
+  function saveFormToLocalStorage() {
+    const formData = new FormData(form);
+    const savedData = {};
+    formData.forEach((value, key) => {
+      savedData[key] = value;
+    });
+    localStorage.setItem("vendorFormData", JSON.stringify(savedData));
+  }
+
+  // Load all form fields from localStorage
+  function loadFormFromLocalStorage() {
+    const savedData = JSON.parse(localStorage.getItem("vendorFormData"));
+    if (savedData) {
+      for (let key in savedData) {
+        const field = form.elements.namedItem(key);
+        if (field) {
+          field.value = savedData[key];
+        }
+      }
+    }
+  }
+
+  // Clear saved form data
+  function clearFormData() {
+    localStorage.removeItem("vendorFormData");
+  }
+
+  // Save on every change
+  form.addEventListener("input", saveFormToLocalStorage);
+
+  // Restore data on page load
+  document.addEventListener("DOMContentLoaded", function () {
+    loadFormFromLocalStorage();
+    showStep(currentStep);
+  });
+
+  // On submission, clear saved data if on last step
+  form.addEventListener("submit", function (e) {
     if (currentStep !== steps.length - 1) {
       e.preventDefault();
       nextStep();
+    } else {
+      clearFormData(); // Form successfully submitted, clear saved data
     }
-    // On last step, let it submit normally
-  });
-
-  document.addEventListener("DOMContentLoaded", function() {
-    showStep(currentStep);
   });
 </script>
+
 
 
   
